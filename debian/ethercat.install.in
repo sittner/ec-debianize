@@ -1,0 +1,7 @@
+lib/modules/@KERNEL_VERSION@/ethercat
+etc/default/*
+etc/udev/rules.d/*
+usr/bin/*
+usr/sbin/*
+usr/lib/*.so*
+

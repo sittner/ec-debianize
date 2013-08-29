@@ -1,0 +1,89 @@
+#!/usr/bin/make -f
+# Simple set of debian/rules that uses debhelper.
+# Based on an example by Joey Hess. 
+# extended by Paul Corner, Alex Joni, Chris Radek, Jeff Epler (in cronological order)
+
+# Copyright (C) 2006 Jeff Epler
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# When used to produce a debian package, this file is a script "used to
+# control compilation and installation of the executable"
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+include /usr/share/dpatch/dpatch.make
+
+top_srcdir:=$(shell pwd)
+tmp:=debian/tmp
+tmp_absolute:=$(top_srcdir)/$(tmp)
+extras:=debian/@EXTRAS@
+
+configure: configure-stamp
+configure-stamp: patch-stamp
+	dh_testdir
+	./configure \
+		--prefix=/usr --sysconfdir=/etc --localstatedir=/var \
+		--with-rtai-dir=@RTAI_PATH@ --with-linux-dir=/@KERNEL_BUILDDIR@ \
+		--enable-8139too --enable-e100 --enable-e1000 --enable-e1000e --enable-r8169
+	touch $@
+
+build: build-stamp
+build-stamp: configure-stamp
+	dh_testdir
+	$(MAKE) all modules
+	touch build-stamp
+
+clean: clean-patched unpatch
+clean-patched: configure
+	dh_testdir
+	dh_testroot
+	rm -f configure-stamp build-stamp
+	$(MAKE) distclean
+	dh_clean
+
+install: build
+	dh_testdir
+	dh_testroot
+	dh_installdirs
+
+	$(MAKE) DESTDIR=$(tmp_absolute) install
+	$(MAKE) INSTALL_MOD_PATH=$(tmp_absolute) modules_install
+
+	rm -f $(tmp)/usr/sbin/ethercatctl 
+	mv $(tmp)/etc/sysconfig $(tmp)/etc/default
+
+	cp -dR $(extras)/* $(tmp)
+
+	mkdir -p $(tmp)/usr/realtime-@KERNEL_VERSION@/modules/ethercat
+	cp Module.symvers $(tmp)/usr/realtime-@KERNEL_VERSION@/modules/ethercat
+
+	dh_install --sourcedir=$(tmp)
+
+# Build architecture-independent files here.
+binary-indep: build install
+# We have nothing to do by default.
+
+# Build architecture-dependent files here.
+binary-arch: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs
+	dh_installdocs
+	dh_installman
+	dh_link
+	dh_strip
+	dh_makeshlibs
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep binary-arch
+.PHONY: build clean binary-indep binary-arch binary install
+

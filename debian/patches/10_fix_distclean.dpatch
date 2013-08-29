@@ -1,0 +1,239 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 10_fix_distclean.dpatch by  <cncmill@cncmill>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: fix make distclean problem
+
+@DPATCH@
+
+diff -urNp ethercat-1.5.1.orig/devices/e1000/Makefile.am ethercat-1.5.1/devices/e1000/Makefile.am
+--- ethercat-1.5.1.orig/devices/e1000/Makefile.am	2012-01-30 15:26:19.000000000 +0100
++++ ethercat-1.5.1/devices/e1000/Makefile.am	2012-03-19 18:41:20.891164760 +0100
+@@ -238,6 +238,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+diff -urNp ethercat-1.5.1.orig/devices/e1000/Makefile.in ethercat-1.5.1/devices/e1000/Makefile.in
+--- ethercat-1.5.1.orig/devices/e1000/Makefile.in	2012-01-30 15:26:45.000000000 +0100
++++ ethercat-1.5.1/devices/e1000/Makefile.in	2012-03-19 18:41:19.987164739 +0100
+@@ -614,7 +614,7 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+ 
+diff -urNp ethercat-1.5.1.orig/devices/e1000e/Makefile.am ethercat-1.5.1/devices/e1000e/Makefile.am
+--- ethercat-1.5.1.orig/devices/e1000e/Makefile.am	2012-01-30 15:26:20.000000000 +0100
++++ ethercat-1.5.1/devices/e1000e/Makefile.am	2012-03-19 18:41:24.091165877 +0100
+@@ -151,6 +151,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+diff -urNp ethercat-1.5.1.orig/devices/e1000e/Makefile.in ethercat-1.5.1/devices/e1000e/Makefile.in
+--- ethercat-1.5.1.orig/devices/e1000e/Makefile.in	2012-01-30 15:26:46.000000000 +0100
++++ ethercat-1.5.1/devices/e1000e/Makefile.in	2012-03-19 18:41:23.383162456 +0100
+@@ -527,7 +527,7 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+ 
+diff -urNp ethercat-1.5.1.orig/devices/Makefile.am ethercat-1.5.1/devices/Makefile.am
+--- ethercat-1.5.1.orig/devices/Makefile.am	2012-01-30 15:26:19.000000000 +0100
++++ ethercat-1.5.1/devices/Makefile.am	2012-03-19 18:41:22.563163258 +0100
+@@ -132,6 +132,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+diff -urNp ethercat-1.5.1.orig/devices/Makefile.in ethercat-1.5.1/devices/Makefile.in
+--- ethercat-1.5.1.orig/devices/Makefile.in	2012-01-30 15:26:44.000000000 +0100
++++ ethercat-1.5.1/devices/Makefile.in	2012-03-19 18:41:21.759162554 +0100
+@@ -712,7 +712,7 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+ 
+diff -urNp ethercat-1.5.1.orig/examples/dc_rtai/Makefile.am ethercat-1.5.1/examples/dc_rtai/Makefile.am
+--- ethercat-1.5.1.orig/examples/dc_rtai/Makefile.am	2012-01-10 13:03:28.000000000 +0100
++++ ethercat-1.5.1/examples/dc_rtai/Makefile.am	2012-03-19 18:41:25.983161350 +0100
+@@ -44,6 +44,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+diff -urNp ethercat-1.5.1.orig/examples/dc_rtai/Makefile.in ethercat-1.5.1/examples/dc_rtai/Makefile.in
+--- ethercat-1.5.1.orig/examples/dc_rtai/Makefile.in	2012-01-24 11:47:48.000000000 +0100
++++ ethercat-1.5.1/examples/dc_rtai/Makefile.in	2012-03-19 18:41:25.135163380 +0100
+@@ -420,7 +420,7 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+ 
+diff -urNp ethercat-1.5.1.orig/examples/mini/Makefile.am ethercat-1.5.1/examples/mini/Makefile.am
+--- ethercat-1.5.1.orig/examples/mini/Makefile.am	2012-01-10 13:03:28.000000000 +0100
++++ ethercat-1.5.1/examples/mini/Makefile.am	2012-03-19 18:41:14.611163853 +0100
+@@ -46,6 +46,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+diff -urNp ethercat-1.5.1.orig/examples/mini/Makefile.in ethercat-1.5.1/examples/mini/Makefile.in
+--- ethercat-1.5.1.orig/examples/mini/Makefile.in	2012-01-24 11:47:48.000000000 +0100
++++ ethercat-1.5.1/examples/mini/Makefile.in	2012-03-19 18:41:15.379163856 +0100
+@@ -422,7 +422,7 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+ 
+diff -urNp ethercat-1.5.1.orig/examples/rtai/Makefile.am ethercat-1.5.1/examples/rtai/Makefile.am
+--- ethercat-1.5.1.orig/examples/rtai/Makefile.am	2012-01-10 13:03:28.000000000 +0100
++++ ethercat-1.5.1/examples/rtai/Makefile.am	2012-03-19 18:41:13.511163278 +0100
+@@ -44,6 +44,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+diff -urNp ethercat-1.5.1.orig/examples/rtai/Makefile.in ethercat-1.5.1/examples/rtai/Makefile.in
+--- ethercat-1.5.1.orig/examples/rtai/Makefile.in	2012-01-24 11:47:48.000000000 +0100
++++ ethercat-1.5.1/examples/rtai/Makefile.in	2012-03-19 18:41:14.059165119 +0100
+@@ -420,7 +420,7 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+ 
+diff -urNp ethercat-1.5.1.orig/examples/tty/Makefile.am ethercat-1.5.1/examples/tty/Makefile.am
+--- ethercat-1.5.1.orig/examples/tty/Makefile.am	2012-01-10 13:03:28.000000000 +0100
++++ ethercat-1.5.1/examples/tty/Makefile.am	2012-03-19 18:41:15.995165823 +0100
+@@ -50,6 +50,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+diff -urNp ethercat-1.5.1.orig/examples/tty/Makefile.in ethercat-1.5.1/examples/tty/Makefile.in
+--- ethercat-1.5.1.orig/examples/tty/Makefile.in	2012-01-24 11:47:48.000000000 +0100
++++ ethercat-1.5.1/examples/tty/Makefile.in	2012-03-19 18:41:16.911163973 +0100
+@@ -477,7 +477,7 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+ 
+diff -urNp ethercat-1.5.1.orig/Makefile.am ethercat-1.5.1/Makefile.am
+--- ethercat-1.5.1.orig/Makefile.am	2012-01-10 13:03:28.000000000 +0100
++++ ethercat-1.5.1/Makefile.am	2012-03-19 18:41:12.715161864 +0100
+@@ -85,7 +85,7 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ mydist:
+ 	hg log --style=changelog $(srcdir) > ChangeLog
+diff -urNp ethercat-1.5.1.orig/Makefile.in ethercat-1.5.1/Makefile.in
+--- ethercat-1.5.1.orig/Makefile.in	2012-01-24 11:47:49.000000000 +0100
++++ ethercat-1.5.1/Makefile.in	2012-03-19 18:41:11.615162908 +0100
+@@ -821,7 +821,7 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ mydist:
+ 	hg log --style=changelog $(srcdir) > ChangeLog
+diff -urNp ethercat-1.5.1.orig/master/Makefile.am ethercat-1.5.1/master/Makefile.am
+--- ethercat-1.5.1.orig/master/Makefile.am	2012-01-10 13:03:28.000000000 +0100
++++ ethercat-1.5.1/master/Makefile.am	2012-03-19 18:41:09.979160949 +0100
+@@ -83,6 +83,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+diff -urNp ethercat-1.5.1.orig/master/Makefile.in ethercat-1.5.1/master/Makefile.in
+--- ethercat-1.5.1.orig/master/Makefile.in	2012-01-24 11:47:48.000000000 +0100
++++ ethercat-1.5.1/master/Makefile.in	2012-03-19 18:41:10.903162239 +0100
+@@ -511,7 +511,7 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+ 
+diff -urNp ethercat-1.5.1.orig/tty/Makefile.am ethercat-1.5.1/tty/Makefile.am
+--- ethercat-1.5.1.orig/tty/Makefile.am	2012-01-10 13:03:29.000000000 +0100
++++ ethercat-1.5.1/tty/Makefile.am	2012-03-19 18:41:01.587162055 +0100
+@@ -46,6 +46,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+diff -urNp ethercat-1.5.1.orig/tty/Makefile.in ethercat-1.5.1/tty/Makefile.in
+--- ethercat-1.5.1.orig/tty/Makefile.in	2012-01-24 11:47:49.000000000 +0100
++++ ethercat-1.5.1/tty/Makefile.in	2012-03-19 18:41:04.019162349 +0100
+@@ -474,7 +474,7 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+ 

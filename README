@@ -1,0 +1,51 @@
+DESCRIPTION
+-----------
+
+This directory contain files that are needed to build a debian package of the
+IgH EtherCAT-Master. In contrast to IgH's method to start the master via an
+init script (and unloading existing standard ethernet drivers before statup),
+the config file (/etc/default/ethercat) is used by a script named
+update-ethercat-config that should be called after config changes. The script
+updates /etc/modules and /etc/modprobe.d/ethercat.conf to reflect the
+configuration so that unneeded/unwanted standard drivers get blacklisted
+and the EtherCAT drivers and master are automatically loaded at system startup
+with the right parameters.
+
+BUILD PROCESS
+-------------
+
+The build process was testet unter the official LinuxCNC distibution based on
+Ubuntu 10.04 "Lucid Lynx".
+
+1. Download the EtherCAT-Master source (V1.5.2) from
+   IgH (http://www.etherlab.org/de/ethercat/index.php):
+   # wget http://www.etherlab.org/download/ethercat/ethercat-1.5.2.tar.bz2
+
+2. Untar the archive
+   # tar xvfj ethercat-1.5.2.tar.bz2
+
+3. copy the debian directory to your build directory.
+   # cp -av <source-path-of-LinuxCNC>/src/hal/drivers/ethercat/master/debian ethercat-1.5.2
+
+4. build the packages (very similar to the LinuxCNC build process)
+   # cd ethercat-1.5.2
+   # cd debian
+   # ./configure -a
+   # cd ..
+   # dpkg-checkbuilddeps (and install missing deps)
+   # dpkg-buildpackage
+
+
+INSTALLATION
+------------
+
+Just do a 'sudo dpkg -i ethercat_1.5.2-1_i386.deb' to install the diver. After
+the required config settings in /etc/default/ethercat (please take a look to
+the documentation) you should run 'sudo update-ethercat-config'. Then do a
+reboot or load the ec*-modules manually (see /etc/modules), the master should
+now be functional.
+
+To build the LinuxCNC EtherCAT HAL driver you also need to install the
+development package with 'sudo dpkg -i ethercat-dev_1.5.2-1_i386.deb'
+
+

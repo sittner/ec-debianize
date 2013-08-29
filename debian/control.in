@@ -1,0 +1,23 @@
+Source: ethercat
+Section: misc
+Priority: extra
+Maintainer: Sascha Ittner <sascha.ittner@moodusoft.de>
+Build-Depends: debhelper (>> 4.0.0), @KERNEL_DEPENDS@, @KERNEL_HEADERS@, gettext, autoconf, automake, libtool, dpatch
+Standards-Version: 2.1.0
+
+Package: @ETHERCAT_PACKAGE_NAME@
+Replaces: ethercat, etherlabmaster
+Conflicts: ethercat, etherlabmaster
+Provides: ethercat, etherlabmaster
+Architecture: any
+Depends: ${shlibs:Depends}, @KERNEL_DEPENDS@
+Description: IgH EtherCAT master for Linux
+
+Package: @ETHERCAT_PACKAGE_NAME@-dev
+Replaces: ethercat-dev, etherlabmaster-dev
+Conflicts: ethercat-dev, etherlabmaster-dev
+Provides: ethercat-dev, etherlabmaster-dev
+Architecture: any
+Depends: @ETHERCAT_PACKAGE_NAME@
+Description: IgH EtherCAT master for Linux development files
+

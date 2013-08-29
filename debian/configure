@@ -1,0 +1,124 @@
+#!/bin/bash
+# dpkg configuration script for ethercat
+# Copyright (C) 2006 Jeff Epler
+# Copyright (C) 2012 Sascha Ittner
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# When used to produce a debian package, this file is a script "used to
+# control compilation and installation of the executable"
+
+usage () {
+    P=${0##*/}
+    cat <<EOF
+$P: Set up debian/ files to build for a particular kernel
+
+Usage:
+    $P [kernel-version]
+        Build for the realtime kernel [kernel-version], such as 2.6.12-magma
+
+    $P -r
+        Build for the currently running kernel
+
+    $P -a
+        If the currently running kernel has realtime extensions, use it.
+        Otherwise use any available realtime kernel it can find.
+EOF
+}
+
+cd "${0%/*}"
+
+if [ $# -ne 1 -o "$1" == "-h" -o "$1" == "-help" -o "$1" == "--help" ]; then
+    usage
+    if [ $# -ne 1 ]; then
+        exit 1
+    fi
+    exit 0
+fi
+
+if [ $1 = "-r" ]; then
+    set -- `uname -r`
+elif [ $1 = "-a" ]; then
+    KERNEL="$(uname -r)"
+    if [ ! -d "/usr/realtime-$KERNEL" ]; then
+        KERNEL=$(ls -1d /usr/realtime-* 2> /dev/null | cut -d - -f 2- | head -1)
+        if [ -z "$KERNEL" ]; then
+            echo "no realtime kernels found!"
+            exit 1
+        fi
+    fi
+    set -- $KERNEL
+fi
+
+TARGET=$1
+
+RTAI_PATH=/usr/realtime-$1
+KERNEL_DEPENDS="linux-image-$1, rtai-modules-$1"
+KERNEL_HEADERS=linux-headers-$1
+KERNEL_VERSION=$1
+KERNEL_PATH=lib/modules/$1
+KERNEL_BUILDDIR=$KERNEL_PATH/build
+
+# hope this works on other systems too
+DISTRIB_NAME=
+if [ "$(which lsb_release)" != "" ]; then
+    DISTRIB_NAME="$(lsb_release -s -i)-$(lsb_release -s -r)"
+elif [ -f /etc/lsb-release ]; then
+    source /etc/lsb-release
+    DISTRIB_NAME=$DISTRIB_ID-$DISTRIB_RELEASE
+fi
+
+if [ -d extras-$DISTRIB_NAME ]; then
+	EXTRAS=extras-$DISTRIB_NAME
+else
+	EXTRAS=extras
+fi
+
+ETHERCAT_PACKAGE_NAME=ethercat
+case $TARGET in
+    2.6.12-magma)
+        KERNEL_HEADERS=$KERNEL_HEADERS,gcc-3.4
+    ;;
+    2.6.15-magma)
+        KERNEL_HEADERS=$KERNEL_HEADERS,gcc-4.0
+    ;;
+    2.6.22.6-magma|2.6.24-16-rtai)
+        KERNEL_HEADERS="$KERNEL_HEADERS"
+    ;;
+    2.6.24-16-rtai)
+        KERNEL_HEADERS=$KERNEL_HEADERS,gcc-4.2
+    ;;
+    2.6.32-122-rtai)
+        KERNEL_HEADERS=$KERNEL_HEADERS,gcc-4.4
+    ;;
+    *)
+	echo "your kernel '$TARGET' is not known. There might be needed dependencies which won't get set automatically."
+esac
+
+subst () {
+sed -e "s|@RTAI_PATH@|$RTAI_PATH|g" \
+    -e "s|@KERNEL_VERSION@|$KERNEL_VERSION|g" \
+    -e "s|@KERNEL_DEPENDS@|$KERNEL_DEPENDS|g" \
+    -e "s|@KERNEL_HEADERS@|$KERNEL_HEADERS|g" \
+    -e "s|@KERNEL_PATH@|$KERNEL_PATH|g" \
+    -e "s|@KERNEL_BUILDDIR@|$KERNEL_BUILDDIR|g" \
+    -e "s|@ETHERCAT_PACKAGE_NAME@|$ETHERCAT_PACKAGE_NAME|g" \
+    -e "s|@EXTRAS@|$EXTRAS|g" \
+    -e "s|@DISTRIB_NAME@|$DISTRIB_NAME|g" \
+    -e "s|@TARGET@|$TARGET|g" \
+    $*
+}
+
+ls *.in | while read src; do
+    dst=`echo -n $src | sed -e 's/\.in$//'`
+    subst $src > $dst
+done
+
+chmod +x rules
+
+rm -f ../build-stamp
+echo "successfully configured for '$DISTRIB_NAME'-'$TARGET'.."
+

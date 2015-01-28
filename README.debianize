@@ -17,23 +17,11 @@ BUILD PROCESS
 The build process was testet unter the official LinuxCNC distibution based on
 Ubuntu 10.04 "Lucid Lynx".
 
-1. Download the EtherCAT-Master source (V1.5.2) from
-   IgH (http://www.etherlab.org/de/ethercat/index.php):
-   # wget http://www.etherlab.org/download/ethercat/ethercat-1.5.2.tar.bz2
-
-2. Untar the archive
-   # tar xvfj ethercat-1.5.2.tar.bz2
-
-3. copy the debian directory to your build directory.
-   # cp -av <source-path-of-LinuxCNC>/src/hal/drivers/ethercat/master/debian ethercat-1.5.2
-
-4. build the packages (very similar to the LinuxCNC build process)
-   # cd ethercat-1.5.2
-   # cd debian
+to build the packages (very similar to the LinuxCNC build process):
    # ./configure -a
    # cd ..
    # dpkg-checkbuilddeps (and install missing deps)
-   # dpkg-buildpackage
+   # dpkg-buildpackage (downloads the source tarball automatically)
 
 
 INSTALLATION

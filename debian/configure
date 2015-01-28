@@ -1,5 +1,5 @@
 #!/bin/bash
-# dpkg configuration script for ethercat
+# dpkg configuration script for etherlabmaster
 # Copyright (C) 2006 Jeff Epler
 # Copyright (C) 2012 Sascha Ittner
 #
@@ -77,7 +77,6 @@ else
 	EXTRAS=extras
 fi
 
-ETHERCAT_PACKAGE_NAME=ethercat
 case $TARGET in
     2.6.12-magma)
         KERNEL_HEADERS=$KERNEL_HEADERS,gcc-3.4
@@ -105,7 +104,6 @@ sed -e "s|@RTAI_PATH@|$RTAI_PATH|g" \
     -e "s|@KERNEL_HEADERS@|$KERNEL_HEADERS|g" \
     -e "s|@KERNEL_PATH@|$KERNEL_PATH|g" \
     -e "s|@KERNEL_BUILDDIR@|$KERNEL_BUILDDIR|g" \
-    -e "s|@ETHERCAT_PACKAGE_NAME@|$ETHERCAT_PACKAGE_NAME|g" \
     -e "s|@EXTRAS@|$EXTRAS|g" \
     -e "s|@DISTRIB_NAME@|$DISTRIB_NAME|g" \
     -e "s|@TARGET@|$TARGET|g" \

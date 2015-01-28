@@ -13,10 +13,7 @@ extras:=debian/@EXTRAS@
 configure: configure-stamp
 configure-stamp: patch-stamp
 	dh_testdir
-	./configure \
-		--prefix=/usr --sysconfdir=/etc --localstatedir=/var \
-		--with-rtai-dir=@RTAI_PATH@ --with-linux-dir=/@KERNEL_BUILDDIR@ \
-		--enable-8139too --enable-e100 --enable-e1000 --enable-e1000e --enable-r8169
+	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --with-linux-dir=/@KERNEL_BUILDDIR@ @CONF_EXTRA@
 	touch $@
 
 build: build-stamp

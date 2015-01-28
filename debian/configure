@@ -53,14 +53,12 @@ elif [ $1 = "-a" ]; then
     set -- $KERNEL
 fi
 
-TARGET=$1
-
-RTAI_PATH=/usr/realtime-$1
-KERNEL_DEPENDS="linux-image-$1, rtai-modules-$1"
-KERNEL_HEADERS=linux-headers-$1
 KERNEL_VERSION=$1
-KERNEL_PATH=lib/modules/$1
-KERNEL_BUILDDIR=$KERNEL_PATH/build
+
+KERNEL_DEPENDS="linux-image-$KERNEL_VERSION"
+KERNEL_HEADERS="linux-headers-$KERNEL_VERSION"
+KERNEL_PATH="lib/modules/$KERNEL_VERSION"
+KERNEL_BUILDDIR="$KERNEL_PATH/build"
 
 # hope this works on other systems too
 DISTRIB_NAME=
@@ -77,28 +75,22 @@ else
 	EXTRAS=extras
 fi
 
-case $TARGET in
-    2.6.12-magma)
-        KERNEL_HEADERS=$KERNEL_HEADERS,gcc-3.4
-    ;;
-    2.6.15-magma)
-        KERNEL_HEADERS=$KERNEL_HEADERS,gcc-4.0
-    ;;
-    2.6.22.6-magma|2.6.24-16-rtai)
-        KERNEL_HEADERS="$KERNEL_HEADERS"
-    ;;
-    2.6.24-16-rtai)
-        KERNEL_HEADERS=$KERNEL_HEADERS,gcc-4.2
-    ;;
+CONF_EXTRA=""
+case $KERNEL_VERSION in
     2.6.32-122-rtai)
-        KERNEL_HEADERS=$KERNEL_HEADERS,gcc-4.4
+        KERNEL_DEPENDS="$KERNEL_DEPENDS, rtai-modules-$KERNEL_VERSION"
+        CONF_EXTRA="--with-rtai-dir=/usr/realtime-$KERNEL_VERSION --enable-8139too --enable-e100 --enable-e1000 --enable-e1000e --enable-r8169"
+    ;;
+    3.4-9-rtai-686-pae)
+        KERNEL_DEPENDS="$KERNEL_DEPENDS, rtai-modules-$KERNEL_VERSION"
+        CONF_EXTRA="--with-rtai-dir=/usr/realtime-$KERNEL_VERSION --enable-8139too --enable-e100 --enable-e1000 --enable-e1000e --enable-r8169"
     ;;
     *)
-	echo "your kernel '$TARGET' is not known. There might be needed dependencies which won't get set automatically."
+	echo "your kernel '$KERNEL_VERSION' is not known. There might be needed dependencies which won't get set automatically."
 esac
 
 subst () {
-sed -e "s|@RTAI_PATH@|$RTAI_PATH|g" \
+sed -e "s|@CONF_EXTRA@|$CONF_EXTRA|g" \
     -e "s|@KERNEL_VERSION@|$KERNEL_VERSION|g" \
     -e "s|@KERNEL_DEPENDS@|$KERNEL_DEPENDS|g" \
     -e "s|@KERNEL_HEADERS@|$KERNEL_HEADERS|g" \
@@ -106,7 +98,6 @@ sed -e "s|@RTAI_PATH@|$RTAI_PATH|g" \
     -e "s|@KERNEL_BUILDDIR@|$KERNEL_BUILDDIR|g" \
     -e "s|@EXTRAS@|$EXTRAS|g" \
     -e "s|@DISTRIB_NAME@|$DISTRIB_NAME|g" \
-    -e "s|@TARGET@|$TARGET|g" \
     $*
 }
 
@@ -118,5 +109,5 @@ done
 chmod +x rules
 
 rm -f ../build-stamp
-echo "successfully configured for '$DISTRIB_NAME'-'$TARGET'.."
+echo "successfully configured for '$DISTRIB_NAME'-'$KERNEL_VERSION'.."
 

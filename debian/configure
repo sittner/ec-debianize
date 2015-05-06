@@ -85,9 +85,18 @@ case $KERNEL_VERSION in
         KERNEL_DEPENDS="$KERNEL_DEPENDS, rtai-modules-$KERNEL_VERSION"
         CONF_EXTRA="--with-rtai-dir=/usr/realtime-$KERNEL_VERSION --enable-8139too --enable-e100 --enable-e1000 --enable-e1000e --enable-r8169"
     ;;
+    3.8-1-xenomai.x86-amd64)
+        XENO_CONFIG=`which xeno-config`
+        KERNEL_DEPENDS="$KERNEL_DEPENDS, linux-modules-$KERNEL_VERSION"
+        CONF_EXTRA="--enable-rtdm --enable-8139too --enable-e100 --enable-e1000 --enable-e1000e --enable-r8169"
+    ;;
     *)
 	echo "your kernel '$KERNEL_VERSION' is not known. There might be needed dependencies which won't get set automatically."
 esac
+
+if [ -n "$XENO_CONFIG" ]; then
+	CONF_EXTRA="--with-xenomai-config=$XENO_CONFIG $CONF_EXTRA"
+fi
 
 subst () {
 sed -e "s|@CONF_EXTRA@|$CONF_EXTRA|g" \

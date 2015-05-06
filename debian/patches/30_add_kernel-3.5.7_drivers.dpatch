@@ -1,8 +1,8 @@
 #! /bin/sh /usr/share/dpatch/dpatch-run
-## 31_add_kernel-3.5.7_drivers.dpatch by  <linuxcnc@cncmill2>
+## 30_add_kernel-3.5.7_drivers.dpatch by  <sascha.ittner@modusoft.de>
 ##
 ## All lines beginning with `## DP:' are a description of the patch.
-## DP: No description.
+## DP: Add network drivers for 3.5 kernel series.
 
 @DPATCH@
 diff -urNp etherlabmaster-1.5.2+hg4b0b90.orig/devices/8139too-3.5-ethercat.c etherlabmaster-1.5.2+hg4b0b90/devices/8139too-3.5-ethercat.c

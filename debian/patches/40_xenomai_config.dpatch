@@ -1,0 +1,91 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 40_xenomai_config.dpatch by  <sascha.ittner@modusoft.de>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: Rationalize XENOMAI configuration
+## DP: 
+## DP: This patch is an adaption of the RTAI variant
+## DP: from John Morris <john@zultron.com>
+## DP: 
+## DP: The autoconf configuration script assumes that XENOMAI is built in the
+## DP: source tree, and there exists an 'XENOMAI_DIR' containing
+## DP: e.g. include/xeno_config.h.
+## DP: 
+## DP: This patch replaces the '--with-xenomai-dir' argument with
+## DP: '--with-xenomai-config', and instead of assuming the location of XENOMAI
+## DP: headers relative to an 'XENOMAI_DIR', grabs the entire list of kbuild
+## DP: EXTRA_CFLAGS from `xeno-config`.
+
+@DPATCH@
+
+diff -urNp etherlabmaster-1.5.2+hg4b0b90.orig/configure.ac etherlabmaster-1.5.2+hg4b0b90/configure.ac
+--- etherlabmaster-1.5.2+hg4b0b90.orig/configure.ac	2015-02-19 09:19:29.000000000 -0500
++++ etherlabmaster-1.5.2+hg4b0b90/configure.ac	2015-05-06 11:56:12.637493671 -0400
+@@ -561,40 +561,39 @@ AC_SUBST(RTAI_LXRT_LDFLAGS,[$rtai_lxrt_l
+ # Xenomai path (optional)
+ #------------------------------------------------------------------------------
+ 
+-AC_ARG_WITH([xenomai-dir],
++AC_ARG_WITH([xenomai-config],
+     AC_HELP_STRING(
+-        [--with-xenomai-dir=<DIR>],
+-        [Xenomai path, for RTDM interface and Xenomai examples]
++        [--with-xenomai-config=<FILE>],
++        [Xenomai configuration utility path, for RTDM interface and Xenomai examples]
+     ),
+     [
+-        xenomaidir=[$withval]
++        xenomaiconfig=[$withval]
+         xeno=1
+     ],
+     [
+-        xenomaidir=""
++        xenomaiconfig=""
+         xeno=0
+     ]
+ )
+ 
+ AC_MSG_CHECKING([for Xenomai path])
+ 
+-if test -z "${xenomaidir}"; then
++if test -z "${xenomaiconfig}"; then
+     AC_MSG_RESULT([not specified.])
+ else
+-    if test \! -r ${xenomaidir}/include/xeno_config.h; then
+-        AC_MSG_ERROR([no Xenomai installation found in ${xenomaidir}!])
++    if test \! -x ${xenomaiconfig}; then
++        AC_MSG_ERROR(["${xenomaiconfig}" not executable!])
+     fi
+-    AC_MSG_RESULT([$xenomaidir])
++    AC_MSG_RESULT([$xenomaiconfig])
+ 
+-    xeno_native_cflags=`$xenomaidir/bin/xeno-config --skin native --cflags`
+-    xeno_native_ldflags=`$xenomaidir/bin/xeno-config --skin native --ldflags`
+-    xeno_posix_cflags=`$xenomaidir/bin/xeno-config --skin posix --cflags`
+-    xeno_posix_ldflags=`$xenomaidir/bin/xeno-config --skin posix --ldflags`
+-    xeno_rtdm_cflags=`$xenomaidir/bin/xeno-config --skin rtdm --cflags`
+-    xeno_rtdm_ldflags=`$xenomaidir/bin/xeno-config --skin rtdm --ldflags`
++    xeno_native_cflags=`${xenomaiconfig} --skin native --cflags`
++    xeno_native_ldflags=`${xenomaiconfig} --skin native --ldflags`
++    xeno_posix_cflags=`${xenomaiconfig} --skin posix --cflags`
++    xeno_posix_ldflags=`${xenomaiconfig} --skin posix --ldflags`
++    xeno_rtdm_cflags=`${xenomaiconfig} --skin rtdm --cflags`
++    xeno_rtdm_ldflags=`${xenomaiconfig} --skin rtdm --ldflags`
+ fi
+ 
+-AC_SUBST(XENOMAI_DIR,[$xenomaidir])
+ AM_CONDITIONAL(ENABLE_XENOMAI, test "x$xeno" = "x1")
+ AC_SUBST(ENABLE_XENOMAI,[$xeno])
+ 
+diff -urNp etherlabmaster-1.5.2+hg4b0b90.orig/master/Kbuild.in etherlabmaster-1.5.2+hg4b0b90/master/Kbuild.in
+--- etherlabmaster-1.5.2+hg4b0b90.orig/master/Kbuild.in	2015-02-19 09:19:29.000000000 -0500
++++ etherlabmaster-1.5.2+hg4b0b90/master/Kbuild.in	2015-05-06 11:54:47.137490846 -0400
+@@ -85,7 +85,7 @@ ifeq (@ENABLE_RTDM@,1)
+ ec_master-objs += rtdm.o
+ 
+ ifeq (@ENABLE_XENOMAI@, 1)
+-CFLAGS_rtdm.o := -I@XENOMAI_DIR@/include
++CFLAGS_rtdm.o := @XENOMAI_RTDM_CFLAGS@
+ endif
+ 
+ ifeq (@ENABLE_RTAI@, 1)

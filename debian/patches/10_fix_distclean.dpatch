@@ -1,5 +1,5 @@
 #! /bin/sh /usr/share/dpatch/dpatch-run
-## 10_fix_distclean.dpatch by  <cncmill@cncmill>
+## 10_fix_distclean.dpatch by  <sascha.ittner@modusoft.de>
 ##
 ## All lines beginning with `## DP:' are a description of the patch.
 ## DP: fix make distclean problem

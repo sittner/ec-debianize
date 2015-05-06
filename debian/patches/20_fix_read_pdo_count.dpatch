@@ -1,5 +1,5 @@
 #! /bin/sh /usr/share/dpatch/dpatch-run
-## 20_fix_read_pdo_count.dpatch by  <cncmill@cncmill>
+## 20_fix_read_pdo_count.dpatch by  <sascha.ittner@modusoft.de>
 ##
 ## All lines beginning with `## DP:' are a description of the patch.
 ## DP: fix read-pdo error with stoeber servo amp

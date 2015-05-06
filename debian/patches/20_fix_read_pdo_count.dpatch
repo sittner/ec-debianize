@@ -6,10 +6,10 @@
 
 @DPATCH@
 
-diff -urNp ethercat-1.5.1.orig/master/fsm_pdo_entry.c ethercat-1.5.1/master/fsm_pdo_entry.c
---- ethercat-1.5.1.orig/master/fsm_pdo_entry.c	2012-01-10 13:03:28.000000000 +0100
-+++ ethercat-1.5.1/master/fsm_pdo_entry.c	2012-03-15 09:06:57.615486443 +0100
-@@ -216,7 +216,13 @@ void ec_fsm_pdo_entry_read_state_count(
+diff -urNp etherlabmaster-1.5.2+hg4b0b90.orig/master/fsm_pdo_entry.c etherlabmaster-1.5.2+hg4b0b90/master/fsm_pdo_entry.c
+--- etherlabmaster-1.5.2+hg4b0b90.orig/master/fsm_pdo_entry.c	2015-02-19 09:19:29.000000000 -0500
++++ etherlabmaster-1.5.2+hg4b0b90/master/fsm_pdo_entry.c	2015-05-06 10:00:04.357263437 -0400
+@@ -224,7 +224,13 @@ void ec_fsm_pdo_entry_read_state_count(
          return;
      }
  
@@ -24,7 +24,7 @@ diff -urNp ethercat-1.5.1.orig/master/fsm_pdo_entry.c ethercat-1.5.1/master/fsm_
          EC_SLAVE_ERR(fsm->slave, "Invalid data size %zu at uploading"
                  " SDO 0x%04X:%02X.\n",
                  fsm->request.data_size, fsm->request.index,
-@@ -225,8 +231,6 @@ void ec_fsm_pdo_entry_read_state_count(
+@@ -233,8 +239,6 @@ void ec_fsm_pdo_entry_read_state_count(
          return;
      }
  

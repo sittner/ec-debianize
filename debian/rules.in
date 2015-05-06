@@ -3,8 +3,6 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-SRC_URL=http://etherlab.org/download/ethercat/ethercat-1.5.2.tar.bz2
-
 include /usr/share/dpatch/dpatch.make
 
 top_srcdir:=$(shell pwd)
@@ -12,13 +10,14 @@ tmp:=debian/tmp
 tmp_absolute:=$(top_srcdir)/$(tmp)
 extras:=debian/@EXTRAS@
 
-download-stamp:
-	wget -q -O - $(SRC_URL) | tar xvfj - --strip-components=1
+unpack-stamp:
+	tar xfj $(top_srcdir)/debian/etherlabmaster.tar.bz2 --strip-components=1
 	touch $@
 
 configure: configure-stamp
-configure-stamp: download-stamp patch-stamp
+configure-stamp: unpack-stamp patch-stamp
 	dh_testdir
+	./bootstrap
 	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --with-linux-dir=/@KERNEL_BUILDDIR@ @CONF_EXTRA@
 	touch $@
 

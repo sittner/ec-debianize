@@ -1,4 +1,3 @@
 10_fix_distclean.dpatch
 20_fix_read_pdo_count.dpatch
-30_fix_r8169-3.4-ethercat_typo.dpatch
-31_add_kernel-3.5.7_drivers.dpatch
+#30_add_kernel-3.5.7_drivers.dpatch

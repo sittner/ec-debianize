@@ -1,3 +1,9 @@
+etherlabmaster (1.5.2+hg4b0b90) lucid; urgency=low
+
+  * upgrade to current hg 1.5 branch
+
+ -- Sascha Ittner <sascha.ittner@modusoft.de>  Wed, 04 May 2015 13:57:05 +0200
+
 etherlabmaster (1.5.2-2) lucid; urgency=low
 
   * fixed udev rule and group for /dev/EtherCAT*

@@ -1,0 +1,86 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## 50_fix_kernel_misc.dpatch by  <pi@raspberrypi>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' '--exclude=.hg' '--exclude=_darcs' '--exclude=.bzr' ec-debianize.koppi~/devices/generic.c ec-debianize.koppi/devices/generic.c
+--- ec-debianize.koppi~/devices/generic.c	2015-02-19 14:19:29.000000000 +0000
++++ ec-debianize.koppi/devices/generic.c	2016-05-29 20:49:00.593339120 +0000
+@@ -149,7 +149,12 @@
+     dev->socket = NULL;
+     dev->rx_buf = NULL;
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3,17,0)
+     dev->netdev = alloc_netdev(sizeof(ec_gen_device_t *), &null, ether_setup);
++#else
++    dev->netdev = alloc_netdev(sizeof(ec_gen_device_t *), &null, NET_NAME_UNKNOWN, ether_setup);
++#endif
++
+     if (!dev->netdev) {
+         return -ENOMEM;
+     }
+@@ -201,14 +206,30 @@
+ {
+     int ret;
+     struct sockaddr_ll sa;
+++#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 2, 0))
+++    struct net *nd_net;
+++#endif
+ 
+     dev->rx_buf = kmalloc(EC_GEN_RX_BUF_SIZE, GFP_KERNEL);
+     if (!dev->rx_buf) {
+         return -ENOMEM;
+     }
+ 
++#if (LINUX_VERSION_CODE < KERNEL_VERSION(4, 2, 0))
+     ret = sock_create_kern(PF_PACKET, SOCK_RAW, htons(ETH_P_ETHERCAT),
+             &dev->socket);
++#else
++    nd_net = dev_net(dev->netdev);
++
++    if (!nd_net) {
++        printk(KERN_ERR PFX "Failed to obtain net namespace.\n");
++        return -EINVAL;
++    }
++
++    ret = sock_create_kern(nd_net, PF_PACKET, SOCK_RAW, htons(ETH_P_ETHERCAT),
++           &dev->socket);
++#endif
++
+     if (ret) {
+         printk(KERN_ERR PFX "Failed to create socket (ret = %i).\n", ret);
+         return ret;
+diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' '--exclude=.hg' '--exclude=_darcs' '--exclude=.bzr' ec-debianize.koppi~/master/debug.c ec-debianize.koppi/master/debug.c
+--- ec-debianize.koppi~/master/debug.c	2015-02-19 14:19:29.000000000 +0000
++++ ec-debianize.koppi/master/debug.c	2016-05-29 20:46:18.314395317 +0000
+@@ -83,8 +83,13 @@
+ 
+     memset(&dbg->stats, 0, sizeof(struct net_device_stats));
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3,17,0)
+     if (!(dbg->dev =
+           alloc_netdev(sizeof(ec_debug_t *), name, ether_setup))) {
++#else
++    if (!(dbg->dev =
++          alloc_netdev(sizeof(ec_debug_t *), name, NET_NAME_UNKNOWN, ether_setup))) {
++#endif
+         EC_MASTER_ERR(device->master, "Unable to allocate net_device"
+                 " for debug object!\n");
+         return -ENODEV;
+diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' '--exclude=.hg' '--exclude=_darcs' '--exclude=.bzr' ec-debianize.koppi~/master/ethernet.c ec-debianize.koppi/master/ethernet.c
+--- ec-debianize.koppi~/master/ethernet.c	2015-02-19 14:19:29.000000000 +0000
++++ ec-debianize.koppi/master/ethernet.c	2016-05-29 20:46:57.944137498 +0000
+@@ -148,7 +148,11 @@
+ 
+     snprintf(eoe->datagram.name, EC_DATAGRAM_NAME_SIZE, name);
+ 
++#if LINUX_VERSION_CODE < KERNEL_VERSION(3,17,0)
+     if (!(eoe->dev = alloc_netdev(sizeof(ec_eoe_t *), name, ether_setup))) {
++#else
++    if (!(eoe->dev = alloc_netdev(sizeof(ec_eoe_t *), name, NET_NAME_UNKNOWN, ether_setup))) {
++#endif
+         EC_SLAVE_ERR(slave, "Unable to allocate net_device %s"
+                 " for EoE handler!\n", name);
+         ret = -ENODEV;

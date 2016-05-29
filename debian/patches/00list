@@ -2,3 +2,4 @@
 20_fix_read_pdo_count.dpatch
 30_add_kernel-3.5.7_drivers.dpatch
 40_xenomai_config.dpatch
+50_fix_kernel_misc.dpatch

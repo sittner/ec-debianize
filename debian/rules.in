@@ -18,7 +18,7 @@ configure: configure-stamp
 configure-stamp: unpack-stamp patch-stamp
 	dh_testdir
 	./bootstrap
-	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --with-linux-dir=/@KERNEL_BUILDDIR@ @CONF_EXTRA@
+	@CONF_FLAGS@ ./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --with-linux-dir=/@KERNEL_BUILDDIR@ @CONF_EXTRA@
 	touch $@
 
 build: build-stamp

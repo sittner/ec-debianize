@@ -90,6 +90,10 @@ case $KERNEL_VERSION in
         KERNEL_DEPENDS="$KERNEL_DEPENDS, linux-modules-$KERNEL_VERSION"
         CONF_EXTRA="--enable-rtdm --enable-8139too --enable-e100 --enable-e1000 --enable-e1000e --enable-r8169"
     ;;
+    4.4.11-rt17-v7+) # for Raspberry Pi 3
+        CONF_FLAGS="CFLAGS='-march=armv6 -mfpu=vfp -mfloat-abi=hard'"
+        CONF_EXTRA="--enable-debug-if --enable-generic --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --host=arm-linux-gnueabihf"
+    ;;
     *)
 	echo "your kernel '$KERNEL_VERSION' is not known. There might be needed dependencies which won't get set automatically."
 esac
@@ -100,6 +104,7 @@ fi
 
 subst () {
 sed -e "s|@CONF_EXTRA@|$CONF_EXTRA|g" \
+    -e "s|@CONF_FLAGS@|$CONF_FLAGS|g" \
     -e "s|@KERNEL_VERSION@|$KERNEL_VERSION|g" \
     -e "s|@KERNEL_DEPENDS@|$KERNEL_DEPENDS|g" \
     -e "s|@KERNEL_HEADERS@|$KERNEL_HEADERS|g" \

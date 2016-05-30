@@ -25,9 +25,9 @@ diff -urNad '--exclude=CVS' '--exclude=.svn' '--exclude=.git' '--exclude=.arch' 
  {
      int ret;
      struct sockaddr_ll sa;
-++#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 2, 0))
-++    struct net *nd_net;
-++#endif
++#if (LINUX_VERSION_CODE >= KERNEL_VERSION(4, 2, 0))
++    struct net *nd_net;
++#endif
  
      dev->rx_buf = kmalloc(EC_GEN_RX_BUF_SIZE, GFP_KERNEL);
      if (!dev->rx_buf) {

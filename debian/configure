@@ -91,7 +91,7 @@ case $KERNEL_VERSION in
         CONF_EXTRA="--enable-rtdm --enable-8139too --enable-e100 --enable-e1000 --enable-e1000e --enable-r8169"
     ;;
     4.4.11-rt17-v7+) # for Raspberry Pi 3
-        CONF_FLAGS="CFLAGS='-march=armv6 -mfpu=vfp -mfloat-abi=hard'"
+        CONF_FLAGS="CFLAGS=-march=armv6"
         CONF_EXTRA="--enable-debug-if --enable-generic --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --host=arm-linux-gnueabihf"
     ;;
     *)

@@ -90,9 +90,9 @@ case $KERNEL_VERSION in
         KERNEL_DEPENDS="$KERNEL_DEPENDS, linux-modules-$KERNEL_VERSION"
         CONF_EXTRA="--enable-rtdm --enable-8139too --enable-e100 --enable-e1000 --enable-e1000e --enable-r8169"
     ;;
-    4.4.11-rt17-v7+) # for Raspberry Pi 3
+    4.4.11-rt17-v7+|4.4.4-rt9-v7+) # for RPi3 (custom built kernel) | linux-image-rpi2-rt (from machinekit.io)
         CONF_FLAGS="CFLAGS=-march=armv6"
-        CONF_EXTRA="--enable-debug-if --enable-generic --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --host=arm-linux-gnueabihf"
+        CONF_EXTRA="--enable-generic --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --host=arm-linux-gnueabihf"
     ;;
     *)
 	echo "your kernel '$KERNEL_VERSION' is not known. There might be needed dependencies which won't get set automatically."

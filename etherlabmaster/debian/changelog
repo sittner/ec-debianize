@@ -1,4 +1,12 @@
-etherlabmaster (1.5.2+hg4b0b90) lucid; urgency=low
+etherlabmaster (1.5.2+20170303hg3be68a-1) stretch; urgency=low
+
+  * upgrade to current hg 1.5 branch
+  * added dkms support
+  * remove RTAI support
+
+ -- Sascha Ittner <sascha.ittner@modusoft.de>  Sat, 24 Jun 2017 15:55:31 +0200
+
+etherlabmaster (1.5.2+20150219hg4b0b90-1) lucid; urgency=low
 
   * upgrade to current hg 1.5 branch
 

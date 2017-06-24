@@ -1,7 +1,6 @@
-lib/modules/@KERNEL_VERSION@/ethercat
-etc/default/*
-etc/udev/rules.d/*
+debian/extras/* /
+etc/sysconfig/* etc/default/
 usr/bin/*
 usr/sbin/*
-usr/lib/*.so*
+usr/lib/*/*.so*
 

@@ -7,9 +7,6 @@ if [ "$1" = "remove" ] ; then
     fi
   done
   cat /proc/modules | grep -q "^ec_master" && rmmod ec_master
-  cat /etc/modules | grep -v "^ec_" >/etc/modules.tmp
-  mv /etc/modules.tmp /etc/modules
-  rm -f /etc/modprobe.d/ethercat.conf
 fi
 #DEBHELPER#
 exit 0

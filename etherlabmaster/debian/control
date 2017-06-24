@@ -2,7 +2,7 @@ Source: etherlabmaster
 Section: misc
 Priority: extra
 Maintainer: Sascha Ittner <sascha.ittner@modusoft.de>
-Build-Depends: debhelper (>> 4.0.0), @KERNEL_HEADERS@, @KERNEL_DEPENDS@, gettext, autoconf, automake, libtool, dpatch
+Build-Depends: debhelper (>> 4.0.0), dkms, gettext, autoconf, automake, libtool, dpatch
 Standards-Version: 2.1.0
 
 Package: etherlabmaster
@@ -10,7 +10,7 @@ Replaces: ethercat, etherlabmaster
 Conflicts: ethercat, etherlabmaster
 Provides: ethercat, etherlabmaster
 Architecture: any
-Depends: ${shlibs:Depends}, @KERNEL_DEPENDS@
+Depends: ${shlibs:Depends}, dkms
 Description: IgH EtherCAT master for Linux
 
 Package: etherlabmaster-dev

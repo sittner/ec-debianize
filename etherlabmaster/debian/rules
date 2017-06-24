@@ -1,78 +1,36 @@
 #!/usr/bin/make -f
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+VERSION ?= $(shell dpkg-parsechangelog | sed -rne 's/^Version: ([0-9.]+(\+[0-9]*hg[0-9a-z]*)?).*$$/\1/p')
 
-include /usr/share/dpatch/dpatch.make
+ifeq ($(DEB_HOST_ARCH_OS),linux)
+	CONFFLAGS += --enable-kernel --enable-generic --enable-ccat --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169
+endif
 
-top_srcdir:=$(shell pwd)
-tmp:=debian/tmp
-tmp_absolute:=$(top_srcdir)/$(tmp)
-extras:=debian/@EXTRAS@
+default:
+	echo "$(VERSION)"
 
-unpack-stamp:
-	tar xfj $(top_srcdir)/debian/etherlabmaster.tar.bz2 --strip-components=1
-	touch $@
+%:
+	dh $@ --with autoreconf,dkms
 
-configure: configure-stamp
-configure-stamp: unpack-stamp patch-stamp
-	dh_testdir
-	./bootstrap
-	./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var --with-linux-dir=/@KERNEL_BUILDDIR@ @CONF_EXTRA@
-	touch $@
+override_dh_autoreconf:
+	touch ChangeLog
+	dh_autoreconf
 
-build: build-stamp
-build-stamp: configure-stamp
-	dh_testdir
-	$(MAKE) all modules
-	touch build-stamp
-
-clean: clean-patched unpatch
-clean-patched: configure
-	dh_testdir
-	dh_testroot
-	rm -f configure-stamp build-stamp
-	$(MAKE) distclean
+override_dh_clean:
+	rm -f ChangeLog
 	dh_clean
 
-install: build
-	dh_testdir
-	dh_testroot
-	dh_installdirs
+override_dh_auto_configure:
+	dh_auto_configure -- \
+		$(CONFFLAGS)
 
-	$(MAKE) DESTDIR=$(tmp_absolute) install
-	$(MAKE) INSTALL_MOD_PATH=$(tmp_absolute) modules_install
+override_dh_install:
+	dh_install --list-missing
 
-	rm -f $(tmp)/usr/sbin/ethercatctl 
-	mv $(tmp)/etc/sysconfig $(tmp)/etc/default
+	dh_install -petherlabmaster config.h globals.h Kbuild usr/src/etherlabmaster-$(VERSION)
+	dh_install -petherlabmaster -X.o -X.ko -XMakefile -X.in -X.am examples/ include/ master/ tty/ usr/src/etherlabmaster-$(VERSION)
+	dh_install -petherlabmaster devices/Kbuild devices/ecdev.h devices/generic.c usr/src/etherlabmaster-$(VERSION)/devices
+	dh_install -petherlabmaster -X.o -X.ko -XMakefile -X.in -X.am devices/ccat/ usr/src/etherlabmaster-$(VERSION)/devices
 
-	cp -dR $(extras)/* $(tmp)
-
-	mkdir -p $(tmp)/usr/realtime-@KERNEL_VERSION@/modules/ethercat
-	cp Module.symvers $(tmp)/usr/realtime-@KERNEL_VERSION@/modules/ethercat
-
-	dh_install --sourcedir=$(tmp)
-
-# Build architecture-independent files here.
-binary-indep: build install
-# We have nothing to do by default.
-
-# Build architecture-dependent files here.
-binary-arch: build install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs
-	dh_installdocs
-	dh_installman
-	dh_link
-	dh_strip
-	dh_makeshlibs
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install
-
+override_dh_dkms:
+	dh_dkms -V $(VERSION)

@@ -1,3 +1,2 @@
 10_fix_distclean.diff
 20_fix_read_pdo_count.diff
-40_xenomai_config.diff

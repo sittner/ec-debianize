@@ -1,3 +1,12 @@
+etherlabmaster (1.5.2+20180317hg9e65f7-1) lucid; urgency=low
+
+  * upgrade to current hg 1.5 branch
+  * added --enable-sii-assign configure option
+  * added --enable-hrtimer configure option
+  * removed outdated xenomai and driver patches
+
+ -- Sascha Ittner <sascha.ittner@modusoft.de>  Wed, 17 Mar 2018 13:24:42 +0100
+
 etherlabmaster (1.5.2+20170303hg3be68a-1) stretch; urgency=low
 
   * upgrade to current hg 1.5 branch

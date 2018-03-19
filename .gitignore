@@ -4,6 +4,7 @@
 /*.buildinfo
 /*.changes
 /*.orig.tar.gz
+/*.debian.tar.xz
 /etherlabmaster/*
 !/etherlabmaster/debian/
 /etherlabmaster/debian/etherlabmaster*/
@@ -14,4 +15,5 @@
 /etherlabmaster/debian/*-stamp
 /etherlabmaster/debian/autoreconf.*
 /etherlabmaster/debian/files
+/etherlabmaster/debian/.pc/
 

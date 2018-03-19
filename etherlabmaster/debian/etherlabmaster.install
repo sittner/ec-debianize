@@ -1,0 +1,6 @@
+debian/extras/* /
+etc/sysconfig/* etc/default/
+usr/bin/*
+usr/sbin/*
+usr/lib/*/*.so*
+

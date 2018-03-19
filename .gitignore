@@ -1,0 +1,17 @@
+/*.deb
+/*.diff.gz
+/*.dsc
+/*.buildinfo
+/*.changes
+/*.orig.tar.gz
+/etherlabmaster/*
+!/etherlabmaster/debian/
+/etherlabmaster/debian/etherlabmaster*/
+/etherlabmaster/debian/tmp/
+/etherlabmaster/debian/*.log
+/etherlabmaster/debian/*.substvars
+/etherlabmaster/debian/*.debhelper
+/etherlabmaster/debian/*-stamp
+/etherlabmaster/debian/autoreconf.*
+/etherlabmaster/debian/files
+

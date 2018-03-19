@@ -1,4 +1,0 @@
-usr/include/*.h
-usr/lib/*.a
-usr/lib/*.la
-usr/realtime-@KERNEL_VERSION@/modules/ethercat/Module.symvers

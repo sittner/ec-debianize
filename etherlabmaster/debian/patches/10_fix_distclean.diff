@@ -1,0 +1,101 @@
+--- a/devices/e1000/Makefile.am
++++ b/devices/e1000/Makefile.am
+@@ -350,6 +350,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/devices/e1000e/Makefile.am
++++ b/devices/e1000e/Makefile.am
+@@ -428,6 +428,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/devices/Makefile.am
++++ b/devices/Makefile.am
+@@ -186,6 +186,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/examples/dc_rtai/Makefile.am
++++ b/examples/dc_rtai/Makefile.am
+@@ -44,6 +44,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/examples/mini/Makefile.am
++++ b/examples/mini/Makefile.am
+@@ -46,6 +46,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/examples/rtai/Makefile.am
++++ b/examples/rtai/Makefile.am
+@@ -44,6 +44,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/examples/tty/Makefile.am
++++ b/examples/tty/Makefile.am
+@@ -50,6 +50,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/Makefile.am
++++ b/Makefile.am
+@@ -88,7 +88,7 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ mydist:
+ 	hg log --style=changelog $(srcdir) > ChangeLog
+--- a/master/Makefile.am
++++ b/master/Makefile.am
+@@ -88,6 +88,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/tty/Makefile.am
++++ b/tty/Makefile.am
+@@ -46,6 +46,6 @@ modules_install:
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------

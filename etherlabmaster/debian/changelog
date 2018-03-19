@@ -1,0 +1,51 @@
+etherlabmaster (1.5.2+20180317hg9e65f7-2) lucid; urgency=low
+
+  * fixed quilt usage
+  * added patch to relax AL state change timeout
+  * do not try to blacklist generic original driver
+
+ -- Sascha Ittner <sascha.ittner@modusoft.de>  Wed, 19 Mar 2018 14:17:37 +0100
+
+etherlabmaster (1.5.2+20180317hg9e65f7-1) lucid; urgency=low
+
+  * upgrade to current hg 1.5 branch
+  * added --enable-sii-assign configure option
+  * added --enable-hrtimer configure option
+  * removed outdated xenomai and driver patches
+
+ -- Sascha Ittner <sascha.ittner@modusoft.de>  Wed, 17 Mar 2018 13:24:42 +0100
+
+etherlabmaster (1.5.2+20170303hg3be68a-1) stretch; urgency=low
+
+  * upgrade to current hg 1.5 branch
+  * added dkms support
+  * remove RTAI support
+
+ -- Sascha Ittner <sascha.ittner@modusoft.de>  Sat, 24 Jun 2017 15:55:31 +0200
+
+etherlabmaster (1.5.2+20150219hg4b0b90-1) lucid; urgency=low
+
+  * upgrade to current hg 1.5 branch
+
+ -- Sascha Ittner <sascha.ittner@modusoft.de>  Wed, 04 May 2015 13:57:05 +0200
+
+etherlabmaster (1.5.2-2) lucid; urgency=low
+
+  * fixed udev rule and group for /dev/EtherCAT*
+
+ -- Sascha Ittner <sascha.ittner@modusoft.de>  Wed, 11 Mar 2015 12:02:32 +0200
+
+etherlabmaster (1.5.2-1) lucid; urgency=low
+
+  * update to version 1.5.2
+
+ -- Sascha Ittner <sascha.ittner@modusoft.de>  Sun, 31 Mar 2013 12:31:20 +0200
+
+etherlabmaster (1.5.1-1) lucid; urgency=low
+
+  * first debian package
+  * fixed make distclean;
+  * fixed read-pdo-count for stoeber servo drive
+
+ -- Sascha Ittner <sascha.ittner@modusoft.de>  Mon, 19 Mar 2012 13:06:05 +0100
+

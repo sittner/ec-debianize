@@ -3,7 +3,7 @@
 #------------------------------------------------------------------------------
 
 MODCONF=/etc/modprobe.d/ethercat.conf
-MODLIST=/etc/modules
+MODLOAD=/etc/modules-load.d/ethercat.conf
 
 #------------------------------------------------------------------------------
 
@@ -70,8 +70,7 @@ echo "# please use update-ethercat-config" >> ${MODCONF}
 echo "#" >> ${MODCONF}
 
 # cleanup modules list
-grep -v '^ec_' ${MODLIST} > ${MODLIST}.tmp
-echo "ec_master" >>${MODLIST}.tmp
+echo "ec_master" >${MODLOAD}.tmp
 
 # check for modules to replace
 for MODULE in ${DEVICE_MODULES}; do
@@ -80,16 +79,18 @@ for MODULE in ${DEVICE_MODULES}; do
         continue # ec_* module not found
     fi
 
-    # blacklist normal driver
-    echo "blacklist ${MODULE}" >> ${MODCONF}
+    if [ "${MODULE}" != "generic" ] ; then
+        # blacklist normal driver
+        echo "blacklist ${MODULE}" >> ${MODCONF}
 
-    # unload normal driver, if loaded
-    if grep -q "^${MODULE} " /proc/modules; then
-      rmmod ${MODULE} || exit_fail
+        # unload normal driver, if loaded
+        if grep -q "^${MODULE} " /proc/modules; then
+            rmmod ${MODULE} || exit_fail
+        fi
     fi
 
     # add ethercat driver
-    echo "${ECMODULE}" >>${MODLIST}.tmp
+    echo "${ECMODULE}" >>${MODLOAD}.tmp
 done
 
 # construct DEVICES and BACKUPS from configuration variables
@@ -120,13 +121,13 @@ echo "options ec_master main_devices=${DEVICES} backup_devices=${BACKUPS}" >> ${
 
 # reload master and network drivers
 if [ -n "${MASTER_LOADED}" ]; then
-    for MODULE in `grep '^ec_' ${MODLIST}.tmp`; do
+    for MODULE in `grep '^ec_' ${MODLOAD}.tmp`; do
         modprobe ${MODPROBE_FLAGS} ${MODULE} || exit_fail
     done
 fi
 
 # set module list productive
-mv ${MODLIST}.tmp ${MODLIST}
+mv ${MODLOAD}.tmp ${MODLOAD}
 
 # update initramfs
 update-initramfs -u

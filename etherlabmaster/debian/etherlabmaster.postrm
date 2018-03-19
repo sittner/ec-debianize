@@ -1,5 +1,9 @@
 #!/bin/sh
 set -e
+if [ "$1" = "remove" ] ; then
+  rm -f /etc/modules-load.d/ethercat.conf
+  rm -f /etc/modprobe.d/ethercat.conf
+fi
 if [ "$1" = "purge" ] ; then
   getent group ethercat >/dev/null && groupdel ethercat
 fi

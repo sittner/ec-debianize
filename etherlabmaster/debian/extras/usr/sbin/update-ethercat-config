@@ -79,12 +79,14 @@ for MODULE in ${DEVICE_MODULES}; do
         continue # ec_* module not found
     fi
 
-    # blacklist normal driver
-    echo "blacklist ${MODULE}" >> ${MODCONF}
+    if [ "${MODULE}" != "generic" ] ; then
+        # blacklist normal driver
+        echo "blacklist ${MODULE}" >> ${MODCONF}
 
-    # unload normal driver, if loaded
-    if grep -q "^${MODULE} " /proc/modules; then
-      rmmod ${MODULE} || exit_fail
+        # unload normal driver, if loaded
+        if grep -q "^${MODULE} " /proc/modules; then
+            rmmod ${MODULE} || exit_fail
+        fi
     fi
 
     # add ethercat driver

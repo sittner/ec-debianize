@@ -2,7 +2,7 @@ Source: etherlabmaster
 Section: misc
 Priority: extra
 Maintainer: Sascha Ittner <sascha.ittner@modusoft.de>
-Build-Depends: debhelper (>> 4.0.0), dkms, gettext, autoconf, automake, libtool, dpatch
+Build-Depends: debhelper (>> 4.0.0), dkms, gettext, autoconf, automake, libtool, quilt
 Standards-Version: 2.1.0
 
 Package: etherlabmaster

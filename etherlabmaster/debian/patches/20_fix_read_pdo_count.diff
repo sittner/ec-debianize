@@ -1,14 +1,5 @@
-#! /bin/sh /usr/share/dpatch/dpatch-run
-## 20_fix_read_pdo_count.dpatch by  <sascha.ittner@modusoft.de>
-##
-## All lines beginning with `## DP:' are a description of the patch.
-## DP: fix read-pdo error with stoeber servo amp
-
-@DPATCH@
-
-diff -urNp etherlabmaster-1.5.2+hg4b0b90.orig/master/fsm_pdo_entry.c etherlabmaster-1.5.2+hg4b0b90/master/fsm_pdo_entry.c
---- etherlabmaster-1.5.2+hg4b0b90.orig/master/fsm_pdo_entry.c	2015-02-19 09:19:29.000000000 -0500
-+++ etherlabmaster-1.5.2+hg4b0b90/master/fsm_pdo_entry.c	2015-05-06 10:00:04.357263437 -0400
+--- a/master/fsm_pdo_entry.c
++++ b/master/fsm_pdo_entry.c
 @@ -224,7 +224,13 @@ void ec_fsm_pdo_entry_read_state_count(
          return;
      }

@@ -1,3 +1,11 @@
+etherlabmaster (1.5.2+20180317hg9e65f7-2) lucid; urgency=low
+
+  * fixed quilt usage
+  * added patch to relax AL state change timeout
+  * do not try to blacklist generic original driver
+
+ -- Sascha Ittner <sascha.ittner@modusoft.de>  Wed, 19 Mar 2018 14:17:37 +0100
+
 etherlabmaster (1.5.2+20180317hg9e65f7-1) lucid; urgency=low
 
   * upgrade to current hg 1.5 branch

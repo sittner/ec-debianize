@@ -1,0 +1,10 @@
+#!/bin/sh
+
+ksrc_dir="$1"
+build_dir="$2"
+
+rm -f "$ksrc_dir/ethercat.symvers"
+
+rm -f "$ksrc_dir/include/ethercat/ecdev.h"
+rmdir --ignore-fail-on-non-empty "$ksrc_dir/include/ethercat"
+

@@ -1,0 +1,12 @@
+--- a/master/slave.h
++++ b/master/slave.h
+@@ -283,9 +283,7 @@
+     uint8_t read_mbox_busy; /**< Flag set during a mailbox read request. */
+     struct rt_mutex mbox_sem; /**< Semaphore protecting the check_mbox variable. */
+ 
+-#ifdef EC_EOE
+     ec_mbox_data_t mbox_eoe_data; /**< Received mailbox data for EoE. */
+-#endif
+     ec_mbox_data_t mbox_coe_data; /**< Received mailbox data for CoE. */
+     ec_mbox_data_t mbox_foe_data; /**< Received mailbox data for FoE. */
+     ec_mbox_data_t mbox_soe_data; /**< Received mailbox data for SoE. */

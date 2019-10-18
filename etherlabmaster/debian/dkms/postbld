@@ -1,0 +1,10 @@
+#!/bin/sh
+
+ksrc_dir="$1"
+build_dir="$2"
+
+cp "$build_dir/Module.symvers" "$ksrc_dir/ethercat.symvers"
+
+mkdir -p "$ksrc_dir/include/ethercat"
+cp "$build_dir/devices/ecdev.h" "$ksrc_dir/include/ethercat"
+

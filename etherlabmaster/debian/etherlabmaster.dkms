@@ -25,3 +25,6 @@ BUILT_MODULE_NAME[3]="examples/mini/ec_mini"
 DEST_MODULE_NAME[3]="ec_mini"
 DEST_MODULE_LOCATION[3]="/updates/dkms"
 
+POST_BUILD="postbld \${kernel_source_dir} $dkms_tree/$PACKAGE_NAME/$PACKAGE_VERSION/build"
+POST_REMOVE="postrm \${kernel_source_dir} $dkms_tree/$PACKAGE_NAME/$PACKAGE_VERSION/build"
+

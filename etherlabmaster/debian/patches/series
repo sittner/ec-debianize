@@ -1,4 +1,4 @@
 10_fix_distclean.diff
 20_fix_read_pdo_count.diff
 30_relax_al_state_change_timeout.diff
-40_fix_sched_include.diff
+40_fix_disable_eoe.diff

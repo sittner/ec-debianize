@@ -1,45 +1,5 @@
---- a/devices/e1000/Makefile.am
-+++ b/devices/e1000/Makefile.am
-@@ -434,6 +434,6 @@
- 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
- 
- clean-local:
--	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
-+	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
- 
- #------------------------------------------------------------------------------
---- a/devices/e1000e/Makefile.am
-+++ b/devices/e1000e/Makefile.am
-@@ -692,6 +692,6 @@
- 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
- 
- clean-local:
--	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
-+	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
- 
- #------------------------------------------------------------------------------
---- a/devices/Makefile.am
-+++ b/devices/Makefile.am
-@@ -226,6 +226,6 @@
- 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
- 
- clean-local:
--	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
-+	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
- 
- #------------------------------------------------------------------------------
---- a/examples/dc_rtai/Makefile.am
-+++ b/examples/dc_rtai/Makefile.am
-@@ -44,6 +44,6 @@
- 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
- 
- clean-local:
--	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
-+	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
- 
- #------------------------------------------------------------------------------
---- a/examples/mini/Makefile.am
-+++ b/examples/mini/Makefile.am
+--- a/devices/ccat/Makefile.am	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/devices/ccat/Makefile.am	2019-10-23 14:53:50.068366901 +0200
 @@ -46,6 +46,6 @@
  		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
  
@@ -48,69 +8,8 @@
 +	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
  
  #------------------------------------------------------------------------------
---- a/examples/rtai/Makefile.am
-+++ b/examples/rtai/Makefile.am
-@@ -44,6 +44,6 @@
- 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
- 
- clean-local:
--	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
-+	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
- 
- #------------------------------------------------------------------------------
---- a/examples/tty/Makefile.am
-+++ b/examples/tty/Makefile.am
-@@ -50,6 +50,6 @@
- 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
- 
- clean-local:
--	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
-+	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
- 
- #------------------------------------------------------------------------------
---- a/Makefile.am
-+++ b/Makefile.am
-@@ -88,7 +88,7 @@
- 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
- 
- clean-local:
--	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
-+	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
- 
- mydist:
- 	hg log --style=changelog $(srcdir) > ChangeLog
---- a/master/Makefile.am
-+++ b/master/Makefile.am
-@@ -92,6 +92,6 @@
- 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
- 
- clean-local:
--	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
-+	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
- 
- #------------------------------------------------------------------------------
---- a/tty/Makefile.am
-+++ b/tty/Makefile.am
-@@ -46,6 +46,6 @@
- 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
- 
- clean-local:
--	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
-+	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
- 
- #------------------------------------------------------------------------------
---- a/devices/ccat/Makefile.am
-+++ b/devices/ccat/Makefile.am
-@@ -46,6 +46,6 @@
- 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
- 
- clean-local:
--	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
-+	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
- 
- #------------------------------------------------------------------------------
---- a/devices/cx2100/Makefile.am
-+++ b/devices/cx2100/Makefile.am
+--- a/devices/cx2100/Makefile.am	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/devices/cx2100/Makefile.am	2019-10-23 14:53:50.068366901 +0200
 @@ -51,6 +51,6 @@
  		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
  
@@ -119,9 +18,110 @@
 +	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
  
  #------------------------------------------------------------------------------
---- a/devices/igb/Makefile.am
-+++ b/devices/igb/Makefile.am
-@@ -280,6 +280,6 @@
+--- a/devices/e1000/Makefile.am	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/devices/e1000/Makefile.am	2019-10-23 14:53:50.064366849 +0200
+@@ -435,6 +435,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/devices/e1000e/Makefile.am	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/devices/e1000e/Makefile.am	2019-10-23 14:53:50.064366849 +0200
+@@ -692,6 +692,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/devices/igb/Makefile.am	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/devices/igb/Makefile.am	2019-10-23 14:53:50.068366901 +0200
+@@ -281,6 +281,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/devices/Makefile.am	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/devices/Makefile.am	2019-10-23 14:53:50.064366849 +0200
+@@ -230,6 +230,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/examples/dc_rtai/Makefile.am	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/examples/dc_rtai/Makefile.am	2019-10-23 14:53:50.064366849 +0200
+@@ -44,6 +44,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/examples/mini/Makefile.am	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/examples/mini/Makefile.am	2019-10-23 14:53:50.064366849 +0200
+@@ -46,6 +46,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/examples/rtai/Makefile.am	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/examples/rtai/Makefile.am	2019-10-23 14:53:50.064366849 +0200
+@@ -44,6 +44,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/examples/tty/Makefile.am	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/examples/tty/Makefile.am	2019-10-23 14:53:50.068366901 +0200
+@@ -50,6 +50,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/Makefile.am	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/Makefile.am	2019-10-23 14:53:50.068366901 +0200
+@@ -93,7 +93,7 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ mydist:
+ 	hg log --style=changelog $(srcdir) > ChangeLog
+--- a/master/Makefile.am	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/master/Makefile.am	2019-10-23 14:53:50.068366901 +0200
+@@ -95,6 +95,6 @@
+ 		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
+ 
+ clean-local:
+-	$(MAKE) -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
++	$(MAKE) -i -C "$(LINUX_SOURCE_DIR)" M="@abs_srcdir@" clean
+ 
+ #------------------------------------------------------------------------------
+--- a/tty/Makefile.am	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/tty/Makefile.am	2019-10-23 14:53:50.068366901 +0200
+@@ -46,6 +46,6 @@
  		INSTALL_MOD_DIR="$(INSTALL_MOD_DIR)" modules_install
  
  clean-local:

@@ -10,7 +10,7 @@ Replaces: ethercat, etherlabmaster
 Conflicts: ethercat, etherlabmaster
 Provides: ethercat, etherlabmaster
 Architecture: any
-Depends: ${shlibs:Depends}, dkms
+Depends: ${shlibs:Depends}, dkms, procps, ifupdown
 Description: IgH EtherCAT master for Linux
 
 Package: etherlabmaster-dev

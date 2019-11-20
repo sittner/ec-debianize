@@ -2,8 +2,9 @@ etherlabmaster (1.5.2+20190904hg33b922p8ea394-1) lucid; urgency=low
 
   * updated to patchset 20190904
   * add /etc/network/interfaces.d config to update-ethercat-config
+  * safe enable of rt mutex for kernels without rt mutex support
 
- -- Sascha Ittner <sascha.ittner@modusoft.de>  Tue, 23 Oct 2019 12:35:19 +0200
+ -- Sascha Ittner <sascha.ittner@modusoft.de>  Tue, 23 Oct 2019 15:25:23 +0200
 
 etherlabmaster (1.5.2+20180622hg33b922p50696d-3) lucid; urgency=low
 

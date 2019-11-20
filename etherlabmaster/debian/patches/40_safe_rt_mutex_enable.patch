@@ -1,0 +1,12 @@
+diff -Naur etherlabmaster_1.5.2+20190904hg33b922p8ea394.orig/master/locks.h etherlabmaster_1.5.2+20190904hg33b922p8ea394/master/locks.h
+--- etherlabmaster_1.5.2+20190904hg33b922p8ea394.orig/master/locks.h	2019-06-24 08:28:32.000000000 +0200
++++ etherlabmaster_1.5.2+20190904hg33b922p8ea394/master/locks.h	2019-10-23 15:21:49.338907238 +0200
+@@ -47,7 +47,7 @@
+ 
+ /*****************************************************************************/
+ 
+-#ifdef EC_USE_RTMUTEX
++#if defined(CONFIG_RT_MUTEXES) && defined(EC_USE_RTMUTEX)
+ 
+ #include <linux/rtmutex.h>
+ 

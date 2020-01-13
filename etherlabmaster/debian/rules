@@ -5,7 +5,7 @@ VERSION ?= $(shell dpkg-parsechangelog | sed -rne 's/^Version: ([0-9.]+(\+[0-9]*
 CONFFLAGS += --disable-eoe --enable-sii-assign
 
 ifeq ($(DEB_HOST_ARCH_OS),linux)
-	CONFFLAGS += --enable-kernel --enable-generic --enable-ccat --disable-8139too --disable-e100 --disable-e1000 --disable-e1000e --disable-r8169 --enable-hrtimer --enable-rtmutex
+	CONFFLAGS += --enable-kernel --enable-generic --enable-ccat --disable-8139too --disable-e100 --disable-e1000 --enable-e1000e --enable-igb --disable-r8169 --enable-hrtimer --enable-rtmutex
 endif
 
 default:
@@ -34,6 +34,8 @@ override_dh_install:
 	dh_install -petherlabmaster debian/dkms/* usr/src/etherlabmaster-$(VERSION)
 	dh_install -petherlabmaster devices/Kbuild devices/ecdev.h devices/generic.c usr/src/etherlabmaster-$(VERSION)/devices
 	dh_install -petherlabmaster -X.o -X.ko -XMakefile -X.in -X.am devices/ccat/ usr/src/etherlabmaster-$(VERSION)/devices
+	dh_install -petherlabmaster -X.o -X.ko -XMakefile -X.in -X.am devices/e1000e/ usr/src/etherlabmaster-$(VERSION)/devices
+	dh_install -petherlabmaster -X.o -X.ko -XMakefile -X.in -X.am devices/igb/ usr/src/etherlabmaster-$(VERSION)/devices
 
 override_dh_dkms:
 	dh_dkms -V $(VERSION)

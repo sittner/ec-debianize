@@ -1,0 +1,55 @@
+> [!IMPORTANT]
+> **This repository is archived and no longer actively maintained.**
+>
+> Active development has moved to [@stratuMAK/stratumak](https://github.com/stratuMAK/stratumak).
+> Packaging of the EtherCAT master on its own is no longer necessary for our
+> purposes, since this is now handled as part of stratumak. Please refer to
+> that project going forward.
+
+# ec-debianize
+
+EtherCAT-Master debianization.
+
+## Description
+
+This directory contain files that are needed to build a debian package of the
+IgH EtherCAT-Master. In contrast to IgH's method to start the master via an
+init script (and unloading existing standard ethernet drivers before statup),
+the config file (`/etc/default/ethercat`) is used by a script named
+`update-ethercat-config` that should be called after config changes. The script
+updates `/etc/modules-load.d/ethercat.conf` and `/etc/modprobe.d/ethercat.conf`
+to reflect the configuration so that unneeded/unwanted standard drivers get
+blacklisted and the EtherCAT drivers and master are automatically loaded at
+system startup with the right parameters.
+
+## Build Process
+
+The build process was testet unter Debian 9 (stretch) with RT-Kernel.
+
+To build the packages:
+
+```sh
+# ./get_source.sh    # checkout source from IGH's HG repos and build source tar
+# cd etherlabmaster
+# dpkg-checkbuilddeps # (and install missing deps)
+# dpkg-buildpackage
+```
+
+## Installation
+
+Just do a `sudo dpkg -i ethercat_<version>_<arch>.deb` to install the diver. After
+the required config settings in `/etc/default/ethercat` (please take a look to
+the documentation) you should run `sudo update-ethercat-config`. Then do a
+reboot or load the ec*-modules manually (see `/etc/modules`), the master should
+now be functional.
+
+To build the LinuxCNC EtherCAT HAL driver you also need to install the
+development package with `sudo dpkg -i ethercat-dev_<version>_<arch>.deb`.
+
+## About RTAI
+
+I've decided to drop support for RTAI to be able to move quickly to recent
+Debian versions and because the master code is not heavily tested against
+RTAI anymore. Latency seems to be OK (at least for me) with linux-rt and
+the generic driver. On the other hand you'll get a cleaner build process
+with DKMS support.
